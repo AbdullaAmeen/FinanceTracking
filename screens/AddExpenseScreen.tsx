@@ -228,6 +228,8 @@ const AddExpenseScreen: React.FC<{navigation: any}> = ({navigation}) => {
     const getCategories = async () => {
       try {
         const result = await fetchTypes();
+        result.sort((a, b) => a.label.localeCompare(b.label));
+        console.log('res', result);
         setCategoryList(result);
       } catch (error) {
         Alert.alert(
@@ -278,16 +280,6 @@ const AddExpenseScreen: React.FC<{navigation: any}> = ({navigation}) => {
           <Text style={styles.selectedText} onPress={() => showDatePicker()}>
             {date.toDateString()}
           </Text>
-          <DropDownPicker
-            open={openType}
-            value={spendType}
-            items={spendTypeLists}
-            setOpen={setOneType}
-            setValue={setSpendType}
-            setItems={setSpendTypeLists}
-            placeholder={'Choose a Spend Type'}
-            style={styles.input}
-          />
 
           <DateTimePickerModal
             isVisible={isDatePickerVisible}
@@ -311,6 +303,16 @@ const AddExpenseScreen: React.FC<{navigation: any}> = ({navigation}) => {
             onChangeText={setExpenditure}
             placeholderTextColor="#444444"
           />
+          <DropDownPicker
+            open={openType}
+            value={spendType}
+            items={spendTypeLists}
+            setOpen={setOneType}
+            setValue={setSpendType}
+            setItems={setSpendTypeLists}
+            placeholder={'Choose a Spend Type'}
+            style={styles.dropdownPicker}
+          />
 
           <DropDownPicker
             open={openCategory}
@@ -320,21 +322,24 @@ const AddExpenseScreen: React.FC<{navigation: any}> = ({navigation}) => {
             setValue={setCategory}
             setItems={setCategoryList}
             placeholder={'Choose a Category'}
+            style={styles.dropdownPicker}
           />
 
-          <Button title="Submit" onPress={handleSubmit} />
+          <TouchableOpacity style={styles.button} onPress={handleSubmit}>
+            <Text style={styles.buttonText}>Submit</Text>
+          </TouchableOpacity>
+
           <DateTimePickerModal
             isVisible={isFetchDatePickerVisible}
             mode="date"
             onConfirm={handleFetchTransactions}
             onCancel={() => setFetchDatePickerVisibility(false)}
           />
-          <View style={styles.switchContainer}>
-            <Button
-              title="Get SMS Transactions"
-              onPress={() => smsTransactionButtonPress()}
-            />
-          </View>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => smsTransactionButtonPress()}>
+            <Text style={styles.buttonText}>Get SMS Transactions</Text>
+          </TouchableOpacity>
           {fetchDate != null ? (
             <Text
               style={styles.selectedText}
@@ -344,16 +349,16 @@ const AddExpenseScreen: React.FC<{navigation: any}> = ({navigation}) => {
           ) : (
             <></>
           )}
-          <View style={styles.switchContainer}>
-            <Button
-              title="View List"
-              onPress={() => navigation.navigate('Home')}
-            />
-          </View>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => navigation.navigate('Home')}>
+            <Text style={styles.buttonText}>View List</Text>
+          </TouchableOpacity>
+
           <Modal visible={isModalVisible} animationType="slide" transparent>
             <View style={styles.modalContainer}>
               <View style={styles.modalContent}>
-                <Text style={styles.modalTitle}>Select a Transaction</Text>
+                <Text style={styles.title}>Select a Transaction</Text>
                 <FlatList
                   data={smsTransactions}
                   keyExtractor={(item, index) => index.toString()}
@@ -391,61 +396,93 @@ const AddExpenseScreen: React.FC<{navigation: any}> = ({navigation}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5F5F5',
+    backgroundColor: '#FAFAFA',
     padding: 20,
   },
-  title: {fontSize: 24, marginBottom: 20, color: '#333'},
+  title: {
+    fontSize: 26,
+    fontWeight: 'bold',
+    color: '#007BFF',
+    textAlign: 'center',
+    marginBottom: 20,
+  },
+  label: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#333',
+    marginBottom: 5,
+  },
   input: {
     width: '100%',
-    padding: 10,
+    padding: 12,
     backgroundColor: '#FFF',
-    borderRadius: 5,
-    borderWidth: 1,
-    borderColor: '#ccc',
-    marginVertical: 10,
+    borderRadius: 8,
+    elevation: 2,
+    marginVertical: 8,
+    fontSize: 16,
   },
-  label: {fontSize: 16, marginBottom: 5, color: 'blue'},
-  dropdownButtonStyle: {
-    width: 200,
-    height: 50,
-    backgroundColor: '#E9ECEF',
-    borderRadius: 12,
-    flexDirection: 'row',
-    justifyContent: 'center',
+  button: {
+    backgroundColor: '#007BFF',
+    paddingVertical: 14,
+    borderRadius: 8,
     alignItems: 'center',
-    paddingHorizontal: 12,
+    marginTop: 10,
+    shadowColor: '#000',
+    shadowOffset: {width: 0, height: 2},
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
   },
-
-  switchContainer: {
-    marginVertical: 10,
+  buttonText: {
+    color: 'white',
+    fontSize: 18,
+    fontWeight: 'bold',
   },
   selectedText: {
-    marginTop: 20,
     fontSize: 16,
     fontWeight: 'bold',
+    color: '#007BFF',
+    textAlign: 'center',
+    paddingVertical: 10,
+  },
+  dropdown: {
+    borderRadius: 8,
+    backgroundColor: '#FFF',
+    elevation: 2,
+    padding: 10,
   },
   modalContainer: {
     flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
     justifyContent: 'center',
-    backgroundColor: 'rgba(0,0,0,0.5)',
-  },
-  modalContainer1: {
-    backgroundColor: 'rgba(0,0,0,0.5)',
-    height: 'auto',
-    justifyContent: 'center',
+    alignItems: 'center',
   },
   modalContent: {
-    backgroundColor: 'white',
+    backgroundColor: '#FFF',
     padding: 20,
-    margin: 20,
-    borderRadius: 10,
+    borderRadius: 12,
+    width: '80%',
     alignItems: 'center',
-    justifyContent: 'center',
+    elevation: 5,
   },
-  modalTitle: {fontSize: 20, fontWeight: 'bold', marginBottom: 10},
-  transactionItem: {padding: 10, borderBottomWidth: 1},
+  transactionItem: {
+    padding: 12,
+    borderRadius: 8,
+    backgroundColor: '#E9ECEF',
+    marginVertical: 5,
+    width: '100%',
+    textAlign: 'center',
+  },
+  dropdownPicker: {
+    width: '100%',
+    height: 50,
+    backgroundColor: '#E9ECEF',
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: '#ccc',
+    paddingHorizontal: 12,
+    marginVertical: 10,
+    zIndex: 1,
+  },
 });
 
 export default AddExpenseScreen;

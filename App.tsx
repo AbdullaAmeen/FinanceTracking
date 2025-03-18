@@ -11,7 +11,7 @@ const App: React.FC = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="AddExpense" component={AddExpenseScreen} />
+        <Stack.Screen name="Add Expense" component={AddExpenseScreen} />
         <Stack.Screen name="Home" component={HomeScreen} />
       </Stack.Navigator>
     </NavigationContainer>
