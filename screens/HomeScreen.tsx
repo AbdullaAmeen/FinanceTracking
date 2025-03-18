@@ -126,63 +126,67 @@ const HomeScreen: React.FC = ({navigation}: any) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F5F5F5',
+    backgroundColor: '#12372A', // Darkest Green
   },
   loadingContainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5F5F5',
+    backgroundColor: '#12372A', // Darkest Green
   },
   sectionHeader: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#333',
-    backgroundColor: '#EEE',
+    color: '#FBFADA', // Lightest Green
+    backgroundColor: '#436850', // Medium-Dark Green
     padding: 8,
     borderRadius: 8,
     marginVertical: 4,
   },
   card: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: '#436850', // Medium-Dark Green
     borderRadius: 8,
     padding: 16,
     marginHorizontal: 16,
     marginVertical: 8,
     shadowColor: '#000',
     shadowOffset: {width: 0, height: 2},
-    shadowOpacity: 0.1,
+    shadowOpacity: 0.3, // Increased for dark mode visibility
     shadowRadius: 4,
-    elevation: 2,
+    elevation: 3, // Increased for dark mode visibility
   },
   title: {
     fontSize: 16,
     fontWeight: 'bold',
     marginBottom: 8,
-    color: '#333',
+    color: '#FBFADA', // Lightest Green
   },
   text: {
     fontSize: 14,
     marginBottom: 4,
-    color: '#555',
+    color: '#ADBC9F', // Medium-Light Green
   },
   emptyText: {
     textAlign: 'center',
     marginTop: 20,
     fontSize: 16,
-    color: '#888',
+    color: '#ADBC9F', // Medium-Light Green
   },
   addButton: {
-    backgroundColor: '#007BFF',
+    backgroundColor: '#ADBC9F', // Medium-Light Green
     padding: 16,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 50,
     margin: 16,
     elevation: 4,
+    shadowColor: '#000',
+    shadowOffset: {width: 0, height: 2},
+    shadowOpacity: 0.4, // Increased for dark mode visibility
+    shadowRadius: 4,
   },
   addButtonText: {
-    color: '#FFFFFF',
+    color: '#12372A', // Darkest Green
     fontSize: 16,
     fontWeight: 'bold',
   },

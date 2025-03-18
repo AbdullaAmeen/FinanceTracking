@@ -276,9 +276,8 @@ const AddExpenseScreen: React.FC<{navigation: any}> = ({navigation}) => {
       ) : (
         <View style={styles.container}>
           <Text style={styles.title}>Add Expense</Text>
-          <Text style={styles.label}>Date:</Text>
           <Text style={styles.selectedText} onPress={() => showDatePicker()}>
-            {date.toDateString()}
+            Date: {date.toDateString()}
           </Text>
 
           <DateTimePickerModal
@@ -294,14 +293,14 @@ const AddExpenseScreen: React.FC<{navigation: any}> = ({navigation}) => {
             keyboardType="numeric"
             value={amount}
             onChangeText={setAmount}
-            placeholderTextColor="#444444"
+            placeholderTextColor="#ADBC9F"
           />
           <TextInput
             style={styles.input}
             placeholder="Expenditure"
             value={expenditure}
             onChangeText={setExpenditure}
-            placeholderTextColor="#444444"
+            placeholderTextColor="#ADBC9F"
           />
           <DropDownPicker
             open={openType}
@@ -311,7 +310,9 @@ const AddExpenseScreen: React.FC<{navigation: any}> = ({navigation}) => {
             setValue={setSpendType}
             setItems={setSpendTypeLists}
             placeholder={'Choose a Spend Type'}
+            placeholderStyle={{color: '#ADBC9F'}}
             style={styles.dropdownPicker}
+            textStyle={{color: '#FBFADA'}}
           />
 
           <DropDownPicker
@@ -322,7 +323,9 @@ const AddExpenseScreen: React.FC<{navigation: any}> = ({navigation}) => {
             setValue={setCategory}
             setItems={setCategoryList}
             placeholder={'Choose a Category'}
+            placeholderStyle={{color: '#ADBC9F'}}
             style={styles.dropdownPicker}
+            textStyle={{color: '#FBFADA'}}
           />
 
           <TouchableOpacity style={styles.button} onPress={handleSubmit}>
@@ -396,92 +399,119 @@ const AddExpenseScreen: React.FC<{navigation: any}> = ({navigation}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FAFAFA',
+    backgroundColor: '#12372A', // Darkest Green - Main background
     padding: 20,
   },
   title: {
-    fontSize: 26,
+    fontSize: 30,
     fontWeight: 'bold',
-    color: '#007BFF',
+    color: '#ADBC9F', // Medium-Light Green - Title text
     textAlign: 'center',
-    marginBottom: 20,
+    marginBottom: 25,
   },
   label: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: '#333',
-    marginBottom: 5,
+    fontSize: 17,
+    fontWeight: 'bold',
+    color: '#FBFADA', // Lightest Green - Label text
+    marginBottom: 8,
   },
   input: {
     width: '100%',
-    padding: 12,
-    backgroundColor: '#FFF',
+    padding: 15,
+    backgroundColor: '#436850', // Medium-Dark Green - Input background
     borderRadius: 8,
-    elevation: 2,
-    marginVertical: 8,
-    fontSize: 16,
-  },
-  button: {
-    backgroundColor: '#007BFF',
-    paddingVertical: 14,
-    borderRadius: 8,
-    alignItems: 'center',
-    marginTop: 10,
+    borderWidth: 1,
+    borderColor: '#ADBC9F', // Medium-Light Green - Input border
     shadowColor: '#000',
     shadowOffset: {width: 0, height: 2},
-    shadowOpacity: 0.2,
-    shadowRadius: 4,
+    shadowOpacity: 0.3, // Increased opacity for dark mode visibility
+    shadowRadius: 5,
+    marginVertical: 10,
+    fontSize: 16,
+    color: '#FBFADA', // Lightest Green - Input text
+    // Medium-Light Green - Placeholder text color
+  },
+  button: {
+    backgroundColor: '#436850', // Medium-Dark Green - Button background
+    paddingVertical: 16,
+    borderRadius: 8,
+    alignItems: 'center',
+    marginTop: 15,
+    shadowColor: '#000',
+    shadowOffset: {width: 0, height: 3},
+    shadowOpacity: 0.4, // Increased opacity for dark mode visibility
+    shadowRadius: 6,
+    elevation: 4, // Increased elevation for dark mode visibility (Android)
   },
   buttonText: {
-    color: 'white',
-    fontSize: 18,
+    color: '#FBFADA', // Lightest Green - Button text
+    fontSize: 19,
     fontWeight: 'bold',
   },
   selectedText: {
-    fontSize: 16,
+    fontSize: 17,
     fontWeight: 'bold',
-    color: '#007BFF',
+    color: '#ADBC9F', // Medium-Light Green - Selected text
     textAlign: 'center',
-    paddingVertical: 10,
+    paddingVertical: 12,
   },
   dropdown: {
     borderRadius: 8,
-    backgroundColor: '#FFF',
-    elevation: 2,
-    padding: 10,
+    backgroundColor: '#436850', // Medium-Dark Green - Dropdown background
+    borderWidth: 1,
+    borderColor: '#ADBC9F', // Medium-Light Green - Dropdown border
+    shadowColor: '#000',
+    shadowOffset: {width: 0, height: 2},
+    shadowOpacity: 0.3, // Increased opacity for dark mode visibility
+    shadowRadius: 5,
+    padding: 12,
   },
   modalContainer: {
     flex: 1,
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    backgroundColor: 'rgba(0, 0, 0, 0.6)', // Darker overlay for dark mode
     justifyContent: 'center',
     alignItems: 'center',
   },
   modalContent: {
-    backgroundColor: '#FFF',
-    padding: 20,
-    borderRadius: 12,
+    backgroundColor: '#436850', // Medium-Dark Green - Modal content background
+    padding: 25,
+    borderRadius: 10,
     width: '80%',
     alignItems: 'center',
-    elevation: 5,
+    shadowColor: '#000',
+    shadowOffset: {width: 0, height: 4},
+    shadowOpacity: 0.5, // Increased opacity for dark mode visibility
+    shadowRadius: 7,
+    elevation: 5, // Increased elevation for dark mode visibility (Android)
   },
   transactionItem: {
-    padding: 12,
+    padding: 14,
     borderRadius: 8,
-    backgroundColor: '#E9ECEF',
-    marginVertical: 5,
+    backgroundColor: '#436850', // Medium-Dark Green - Transaction item background
+    marginVertical: 6,
     width: '100%',
     textAlign: 'center',
+    color: '#FBFADA', // Lightest Green - Transaction item text
+    shadowColor: '#000',
+    shadowOffset: {width: 0, height: 1},
+    shadowOpacity: 0.2, // Increased opacity for dark mode visibility
+    shadowRadius: 3,
   },
   dropdownPicker: {
     width: '100%',
-    height: 50,
-    backgroundColor: '#E9ECEF',
-    borderRadius: 12,
+    height: 55,
+    backgroundColor: '#436850', // Medium-Dark Green - Dropdown picker background
+    borderRadius: 10,
     borderWidth: 1,
-    borderColor: '#ccc',
-    paddingHorizontal: 12,
-    marginVertical: 10,
+    borderColor: '#ADBC9F', // Medium-Light Green - Dropdown picker border
+    paddingHorizontal: 14,
+    marginVertical: 12,
     zIndex: 1,
+    color: '#FBFADA', // Lightest Green - Dropdown picker text
+    shadowColor: '#000',
+    shadowOffset: {width: 0, height: 2},
+    shadowOpacity: 0.3, // Increased opacity for dark mode visibility
+    shadowRadius: 5,
   },
 });
 
