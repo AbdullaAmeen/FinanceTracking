@@ -58,12 +58,12 @@ const HomeScreen: React.FC = ({navigation}: any) => {
         });
 
         // Convert to SectionList format
-        const sectionData: SectionData[] = Object.keys(groupedData).map(
-          key => ({
+        const sectionData: SectionData[] = Object.keys(groupedData)
+          .map(key => ({
             title: key,
-            data: groupedData[key],
-          }),
-        );
+            data: groupedData[key].reverse(),
+          }))
+          .reverse();
 
         setData(sectionData);
       } catch (error) {
