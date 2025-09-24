@@ -10,13 +10,14 @@ import {
   PermissionsAndroid,
   FlatList,
   TouchableOpacity,
+  ActivityIndicator,
 } from 'react-native';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import DropDownPicker from 'react-native-dropdown-picker';
 import SmsAndroid from 'react-native-get-sms-android';
 import {baseUrl} from '../utils/constants';
 import moment from 'moment';
-
+import {Dropdown} from 'react-native-element-dropdown';
 interface DropdownItem {
   label: string;
   value: string;
@@ -228,8 +229,6 @@ const AddExpenseScreen: React.FC<{navigation: any}> = ({navigation}) => {
     const getCategories = async () => {
       try {
         const result = await fetchTypes();
-        result.sort((a, b) => a.label.localeCompare(b.label));
-        console.log('res', result);
         setCategoryList(result);
       } catch (error) {
         Alert.alert(
@@ -272,7 +271,12 @@ const AddExpenseScreen: React.FC<{navigation: any}> = ({navigation}) => {
   return (
     <>
       {loading ? (
-        <Text>Loading...</Text>
+        <View style={styles.loadingContainer}>
+          <ActivityIndicator size="large" color="#ADBC9F" />
+          <Text style={{color: '#ADBC9F', marginTop: 10}}>
+            Loading Expenses...
+          </Text>
+        </View>
       ) : (
         <View style={styles.container}>
           <Text style={styles.title}>Add Expense</Text>
@@ -313,6 +317,9 @@ const AddExpenseScreen: React.FC<{navigation: any}> = ({navigation}) => {
             placeholderStyle={{color: '#ADBC9F'}}
             style={styles.dropdownPicker}
             textStyle={{color: '#FBFADA'}}
+            dropDownContainerStyle={styles.dropdownListContainer}
+            listItemContainerStyle={styles.dropdownListItemContainer}
+            listItemLabelStyle={styles.dropdownListItemLabel}
           />
 
           <DropDownPicker
@@ -326,6 +333,10 @@ const AddExpenseScreen: React.FC<{navigation: any}> = ({navigation}) => {
             placeholderStyle={{color: '#ADBC9F'}}
             style={styles.dropdownPicker}
             textStyle={{color: '#FBFADA'}}
+            dropDownContainerStyle={styles.dropdownListContainer}
+            listItemContainerStyle={styles.dropdownListItemContainer}
+            listItemLabelStyle={styles.dropdownListItemLabel}
+            listMode="SCROLLVIEW"
           />
 
           <TouchableOpacity style={styles.button} onPress={handleSubmit}>
@@ -374,7 +385,7 @@ const AddExpenseScreen: React.FC<{navigation: any}> = ({navigation}) => {
                         setChosenTransaction(item.id);
                         setModalVisible(false);
                       }}>
-                      <Text>
+                      <Text style={styles.label}>
                         Amount: {item.amount} | Date: {item.date.toDateString()}{' '}
                         | {item.counterparty}
                       </Text>
@@ -512,6 +523,42 @@ const styles = StyleSheet.create({
     shadowOffset: {width: 0, height: 2},
     shadowOpacity: 0.3, // Increased opacity for dark mode visibility
     shadowRadius: 5,
+  },
+
+  // dropdownContainer: {
+  //   // Style for the main input field
+  //   backgroundColor: '#436850',
+  //   borderRadius: 10,
+  //   borderWidth: 1,
+  //   borderColor: '#ADBC9F',
+  //   paddingHorizontal: 14,
+  //   marginVertical: 12,
+  //   shadowColor: '#000',
+  //   shadowOffset: {width: 0, height: 2},
+  //   shadowOpacity: 0.3,
+  //   shadowRadius: 5,
+  // },
+  dropdownListContainer: {
+    // Style for the dropdown list container
+    backgroundColor: '#436850',
+    borderRadius: 10,
+    borderColor: '#ADBC9F',
+  },
+  dropdownListItemContainer: {
+    // Style for each item in the dropdown list
+    marginHorizontal: 10,
+    backgroundColor: '#436850',
+    width: '80%',
+  },
+  dropdownListItemLabel: {
+    // Style for the label of each item
+    color: '#FBFADA',
+  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#12372A', // Darkest Green - Matches the main background
   },
 });
 

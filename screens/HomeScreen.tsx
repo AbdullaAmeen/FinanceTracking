@@ -83,7 +83,10 @@ const HomeScreen: React.FC = ({navigation}: any) => {
   if (loading) {
     return (
       <View style={styles.loadingContainer}>
-        <ActivityIndicator size="large" color="#007BFF" />
+        <ActivityIndicator size="large" color="#ADBC9F" />
+        <Text style={{color: '#ADBC9F', marginTop: 10}}>
+          Loading Expenses...
+        </Text>
       </View>
     );
   }
